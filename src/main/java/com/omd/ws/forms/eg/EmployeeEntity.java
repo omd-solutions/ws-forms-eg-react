@@ -1,15 +1,14 @@
 package com.omd.ws.forms.eg;
 
-import com.omd.ws.forms.EntityForm;
-import com.omd.ws.forms.FormField;
-import com.omd.ws.forms.Section;
-import com.omd.ws.forms.Select;
+import com.omd.ws.forms.*;
 
 @EntityForm(sections = {
         @Section(name = "personalDetails", caption = "Personal Details")
 })
 public class EmployeeEntity {
 
+    @FormsIgnore
+    private String id;
     @FormField(columns = 6, section = "personalDetails")
     private String firstName;
     @FormField(columns = 6, section = "personalDetails")
@@ -20,6 +19,24 @@ public class EmployeeEntity {
     @Select(displayField = "name", valueProvider = CountryValueProvider.class)
     private Country country;
 
+    public EmployeeEntity() {
+    }
+
+    public EmployeeEntity(String id, String firstName, String lastName, String address, Country country) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.country = country;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
