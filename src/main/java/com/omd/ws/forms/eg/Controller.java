@@ -11,9 +11,9 @@ public class Controller {
     private Map<String, EmployeeEntity> employees = new HashMap<>();
 
     public Controller() {
-        employees.put("1", new EmployeeEntity("1", "Oliver", "Dennis", "3 Overdale Place", new Country("uk", "United Kingdom")));
-        employees.put("2", new EmployeeEntity("2", "Emily", "Hancock", "Foxdales Farm", new Country("uk", "United Kingdom")));
-        employees.put("3", new EmployeeEntity("3", "Tom", "Smith", "21 Speedwell Drive", null));
+        employees.put("1", new EmployeeEntity("1", "Oliver", "Dennis", "3 Overdale Place", new Country("uk", "United Kingdom"), "English"));
+        employees.put("2", new EmployeeEntity("2", "Emily", "Hancock", "Foxdales Farm", new Country("uk", "United Kingdom"), "Welsh"));
+        employees.put("3", new EmployeeEntity("3", "Tom", "Smith", "21 Speedwell Drive", null, null));
     }
 
     @RequestMapping(value = "/api/employee", method = RequestMethod.GET)
