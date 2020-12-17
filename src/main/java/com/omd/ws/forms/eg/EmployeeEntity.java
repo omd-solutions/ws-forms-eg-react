@@ -2,39 +2,46 @@ package com.omd.ws.forms.eg;
 
 import com.omd.ws.forms.*;
 
-@EntityForm(sections = {
-        @Section(name = "personalDetails", caption = "Personal Details"),
-        @Section(name = "location", caption = "Location")
+@EntityForm(panels = {
+        @Panel(name = "personalDetails", caption = "Personal Details", tab = "Basic Details"),
+        @Panel(name = "location", caption = "Location", tab = "Basic Details")
 })
 public class EmployeeEntity {
 
     @FormsIgnore
     private String id;
 
-    @FormField(columns = 6, section = "personalDetails")
+    @FormField(columns = 6, panel = "personalDetails")
     private String firstName;
 
-    @FormField(columns = 6, section = "personalDetails")
+    @FormField(columns = 6, panel = "personalDetails")
     private String lastName;
 
-    @FormField(section = "personalDetails")
+    @FormField(panel = "personalDetails")
     private String address;
 
-    @FormField(columns = 6, section = "location")
+    @FormField(columns = 6, panel = "personalDetails")
+    @Text(validationRegex = "0[0-9]{10}", validationMessage = "Must be 11 digits and start with a 0")
+    private String phoneNumber;
+
+    @FormField(columns = 6, panel = "location")
     @Select(displayField = "name", valueProvider = CountryValueProvider.class)
     private Country country;
 
-    @FormField(columns = 6, section = "location")
+    @FormField(columns = 6, panel = "location")
     @FilteredSelect(valueProvider = RegionValueProvider.class, filteredBy = "country")
     private String region;
 
-    @FormField(columns = 6, section = "location")
+    @FormField(columns = 6, panel = "location")
     @FilteredSelect(valueProvider = CityValueProvider.class, filteredBy = "region")
     private String city;
 
-    @FormField(columns = 6, section = "location")
+    @FormField(columns = 6, panel = "location")
     @FilteredSelect(valueProvider = LanguageValueProvider.class, filteredBy = "country")
     private String language;
+
+    @FormField(tab = "Resume")
+    private String resume;
 
     public EmployeeEntity() {
     }
@@ -80,6 +87,14 @@ public class EmployeeEntity {
         this.address = address;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public Country getCountry() {
         return country;
     }
@@ -110,5 +125,13 @@ public class EmployeeEntity {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getResume() {
+        return resume;
+    }
+
+    public void setResume(String resume) {
+        this.resume = resume;
     }
 }

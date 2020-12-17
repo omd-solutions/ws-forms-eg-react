@@ -1,15 +1,22 @@
 import React, {useState} from 'react';
 import {AppBar, Button, Toolbar, Typography} from "@material-ui/core";
 import {EntityForm} from "ws-forms-react";
+import {Alert} from "@material-ui/lab";
 
 function App() {
 
     const [employee, setEmployee] = useState({});
     const [updated, setUpdated] = useState(false);
+    const [formError, setFormError] = useState(false);
 
-    const handleEntityChange = (updatedEmployee: any) => {
+    const handleEntityChange = (updatedEmployee: any, error: boolean) => {
         setEmployee(updatedEmployee);
-        setUpdated(true);
+        if(!error) {
+            setFormError(false);
+            setUpdated(true);
+        } else {
+            setFormError(true);
+        }
     };
 
     const fetchEmployee = (employeeId: number) => {
@@ -52,15 +59,18 @@ function App() {
                             onClick={() => fetchEmployee(3)}>
                         Load Employee 3
                     </Button>
-                    <Button color="inherit" disabled={!updated}
+                    <Button color="inherit" disabled={!updated || formError}
                             onClick={saveEmployee}>
                         Save
                     </Button>
                 </Toolbar>
             </AppBar>
+            {formError ? (
+                <Alert severity="error">There are errors on the form</Alert>
+            ) : null}
             <EntityForm entity="com.omd.ws.forms.eg.EmployeeEntity" object={employee} onEntityChange={handleEntityChange} />
         </div>
     );
-};
+}
 
 export default App;
